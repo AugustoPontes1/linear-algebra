@@ -25,14 +25,14 @@ class Matrix:
             raise ValueError(
                 "As matrizes precisam ter a mesma dimensao"
             )
-        return Matrix(
+        return Matrix([
             [
                 a + b
                 for a, b in zip(row_a, row_b)
             ]
             for row_a, row_b 
             in zip(self.values, other.values)
-        )
+        ])
 
     def __neg__(self):
         return Matrix([
