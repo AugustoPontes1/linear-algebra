@@ -1,4 +1,5 @@
-from vector import Vector
+from sim.calculations.vector import Vector
+
 
 class VectorSpaceRules:
     
