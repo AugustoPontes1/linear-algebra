@@ -1,5 +1,5 @@
-from vector import Vector
-from rules import VectorSpaceRules
+from sim.calculations.vector import Vector
+from sim.calculations.rules import VectorSpaceRules
 
 
 class RealVectorSpace:
