@@ -31,5 +31,8 @@ class Vector:
     def __eq__(self, other):
         return self.values == other.values
 
+    def __len__(self):
+        return len(self.values)
+
     def __repr__(self):
         return f"Vector {self.values}"
