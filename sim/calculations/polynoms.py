@@ -1,3 +1,4 @@
+import math
 
 
 class Polynomial:
@@ -5,6 +6,14 @@ class Polynomial:
         self.coefficients = tuple(coefficients)
     
     def __add__(self, other):
+        if (
+            len(self.coefficients)
+            != len(other.coefficients)
+        ):
+            raise ValueError(
+                "Polinômios precisam pertencer ao mesmo P_n."
+            )
+
         return Polynomial(
             *(
                 a + b
@@ -27,4 +36,33 @@ class Polynomial:
         )
     
     def __eq__(self, other):
-        return self.coefficients == other.coefficients
+        return all(
+            math.isclose(
+                a,
+                b,
+                abs_tol=1e-9
+            )
+            for a, b in zip(
+                self.coefficients,
+                other.coefficients,
+            )
+        )
+
+    def __call__(self, x):
+        result = 0
+        
+        for degree, coefficient in enumerate(
+            self.coefficients
+        ):
+            result += (
+                coefficient
+                * x ** degree
+            )
+        
+        return result
+    
+    def __repr__(self):
+        return (
+            f"Polynomial"
+            f"{self.coefficients}"
+        )

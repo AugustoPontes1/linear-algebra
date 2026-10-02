@@ -1,9 +1,16 @@
+from numbers import Real
+
 from sim.calculations.vector import Vector
 from sim.calculations.rules import VectorSpaceRules
 
 
 class RealVectorSpace:
     def __init__(self, dimension):
+        if dimension <= 0:
+            raise ValueError(
+                "A dimensão precisa ser positiva."
+            )
+
         self.dimension = dimension
 
     def contains(self, vector):
@@ -11,14 +18,17 @@ class RealVectorSpace:
             isinstance(vector, Vector)
             and len(vector) == self.dimension
             and all(
-                isinstance(x, (int, float))
+                isinstance(x, (int, Real))
                 for x in vector.values
             )
         )
-    
+
     def zero(self):
         return Vector(*([0] * self.dimension))
     
+    def __repr__(self):
+        return f"R^{self.dimension}"    
+
 
 class VectorSpaceValidator:
     @staticmethod
