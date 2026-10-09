@@ -164,13 +164,14 @@ class VectorSpaceAxioms:
             operations.zero is None
             or operations.opposite is None
         ):
-            results.append(
-                "u + (-u) = 0",
-                False,
-                explanation=(
-                    "Não há candidato a "
-                    "oposto definido."                    
-                ),
+                results.append(
+                    RuleResult("u + (-u) = 0",
+                    False,
+                    explanation=(
+                        "Não há candidato a "
+                        "oposto definido."                    
+                    ),
+                )
             )
         else:
             opposite = operations.opposite(u)

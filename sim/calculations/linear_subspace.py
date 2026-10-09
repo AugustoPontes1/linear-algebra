@@ -187,7 +187,7 @@ class LinearSubspaceRn:
 
                 if(
                     not self.contains(result)
-                    and not other.contais(result)
+                    and not other.contains(result)
                 ):
                     return (
                         u,
