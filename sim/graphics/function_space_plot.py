@@ -60,7 +60,7 @@ class FunctionSpacePlot:
             0.08, 0.25, "a₀", 0
         )
 
-        self.f1 = self.create_controls(
+        self.f1 = self.create_slider(
             0.08, 0.20, "a₁", 0
         )
 
