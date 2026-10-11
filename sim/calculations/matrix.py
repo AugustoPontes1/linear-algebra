@@ -1,5 +1,10 @@
 import math
 
+import sympy as sp
+
+from sim.calculations.generated_subspace import GeneratedSubspace
+from sim.calculations.vector import Vector
+
 
 class Matrix:
     def __init__(self, values):
@@ -110,3 +115,55 @@ class Matrix:
                     return False
         
         return True
+
+    def as_vector(self):
+        return Vector(
+            *[
+                value 
+                for row in self.values
+                for value in row
+            ]
+        )
+
+    def rows_as_vectors(self):
+        return [
+            Vector(*row)
+            for row in self.values
+        ]
+
+    def columns_as_vectors(self):
+        rows, columns = self.shape
+
+        return [
+            Vector(
+                *[
+                    self.values[i][j]
+                    for i in range(rows)
+                ]
+            )
+            for j in range(columns)
+        ]
+
+    def column_space(self):
+        return GeneratedSubspace(
+            *self.columns_as_vectors()
+        )
+
+    def rank(self):
+        return sp.Matrix(
+            self.values
+        ).rank()
+
+    def rref(self):
+        reduced, pivots = sp.Matrix(
+            self.values
+        ).rref()
+
+        return reduced, pivots
+
+    def same_row_space(self, other):
+        return (
+            self.row_space().equals(
+                other.row_space()
+            )
+        )
