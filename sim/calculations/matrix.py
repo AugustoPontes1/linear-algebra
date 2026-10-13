@@ -167,3 +167,90 @@ class Matrix:
                 other.row_space()
             )
         )
+
+    def rows_as_vectors(self):
+        """
+        Cada linha da matriz é interpretada
+        como um vetor de R^n.
+        """
+
+        return [
+            Vector(*row)
+            for row in self.values
+        ]
+
+
+    def columns_as_vectors(self):
+        """
+        Cada coluna da matriz é interpretada
+        como um vetor.
+        """
+
+        rows, columns = self.shape
+
+        return [
+            Vector(
+                *[
+                    self.values[i][j]
+                    for i in range(rows)
+                ]
+            )
+            for j in range(columns)
+        ]
+
+
+    def row_space(self):
+        """
+        Espaço gerado pelas linhas de A.
+        """
+
+        return GeneratedSubspace(
+            *self.rows_as_vectors()
+        )
+
+
+    def column_space(self):
+        """
+        Espaço gerado pelas colunas de A.
+        """
+
+        return GeneratedSubspace(
+            *self.columns_as_vectors()
+        )
+
+
+    def rank(self):
+        """
+        Posto da matriz.
+        """
+
+        return sp.Matrix(
+            self.values
+        ).rank()
+
+
+    def rref(self):
+        """
+        Forma escalonada reduzida por linhas.
+
+        Retorna:
+            matriz reduzida,
+            índices das colunas pivô
+        """
+
+        reduced, pivots = sp.Matrix(
+            self.values
+        ).rref()
+
+        return reduced, pivots
+
+
+    def same_row_space(self, other):
+        """
+        Verifica se duas matrizes geram
+        o mesmo espaço linha.
+        """
+
+        return self.row_space().equals(
+            other.row_space()
+        )
